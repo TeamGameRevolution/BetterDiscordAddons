@@ -1,4 +1,4 @@
-//META{"name": "Trollify", "website": "https://temmie.wtf", "source": "https://gist.github.com/TeamGameRevolution/2f45acab4c5da6a098e74c333d17cc65"}*//
+//META{"name": "Trollify", "website": "https://temmie.wtf", "source": "https://github.com/TeamGameRevolution/BetterDiscordAddons/blob/master/Trollify.plugin.js"}*//
 
 // Cast array of letters to proper grammar.
 Array.prototype.toProperCase = function() {
@@ -589,7 +589,7 @@ class Trollify {
 
         try {
             ZLibrary.PluginUpdater.checkForUpdate(this.getName(), this.getVersion(),
-                "https://gist.githubusercontent.com/TeamGameRevolution/2f45acab4c5da6a098e74c333d17cc65/raw/7745f4e7dcaab9ef0ef07181094479c5340be5af/Trollify.plugin.js");
+                "https://raw.githubusercontent.com/TeamGameRevolution/BetterDiscordAddons/master/Trollify.plugin.js");
         }
         catch (err) {
             this.error("Couldn't check for updates.");
