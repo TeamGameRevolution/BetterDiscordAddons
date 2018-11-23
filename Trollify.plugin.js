@@ -380,9 +380,10 @@ class Trollify {
 
     getName() { return "Trollify"; }
     getDescription() {
-        return "Trollify -- Converts all your text to have a typing quirk\r\n";
+        return "Trollify -- Converts all your text to have a typing quirk\r\n"
+            + "How to use: }}Quirkify{{";
     }
-    getVersion() { return "0.5"; }
+    getVersion() { return "1.0"; }
     getAuthor() { return "TeamGameRevolution"; }
 
     constructor() {
@@ -437,6 +438,7 @@ class Trollify {
                 }
             }
         };
+        this.settings = this.defaultSettings;
     }
 
     updateClasses() {
@@ -582,8 +584,8 @@ class Trollify {
     onSwitch() {}
 
     initialize() {
-        this.log("Initializing...");
         if(this.initialized) return;
+        this.log("Initializing...");
         this.initialized = true;
         this.loadSettings();
 
@@ -607,9 +609,9 @@ class Trollify {
                 let value = inputBox.value;
                 let tailLen = value.length - cursorPos;
 
-                let regex = /\}\}((?:(?!}}).)*?)\{\{/g;
+                let regex = /\}\}((?:.)*?)\{\{/g;
                 if(!regex.test(value)) return;
-                value = value.replace(regex, this.defaultQuirks[this.settings.Trollify.selectedTroll].bind(this)(value));
+                value = value.replace(regex, this.quirkify.bind(this));
                 //var selectedFunction = this.defaultQuirks[this.settings.Trollify.selectedTroll].bind(this);
                 //value = selectedFunction(value);
                 if(value.length > 2000) {
@@ -624,5 +626,9 @@ class Trollify {
         });
 
         this.initialized = true;
+    }
+
+    quirkify(match, text) {
+        return this.defaultQuirks[this.settings.Trollify.selectedTroll].bind(this)(text);
     }
 }
