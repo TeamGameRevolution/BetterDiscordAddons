@@ -191,7 +191,7 @@ class Trollify {
             quirkStr = quirkStr.replace("pause", "paws");
             quirkStr = quirkStr.replace("cause", "claws");
             quirkStr = quirkStr.replace("now", "meow");
-            quirkStr = quirkStr.replace(/\bperfect\b/g, "purfect");
+            quirkStr = quirkStr.replace(/\bperfect\b/g, "purrfect");
             quirkStr = quirkStr.replace("per", "pur");
             quirkStr = quirkStr.replace("pre", "pur");
         }
@@ -300,21 +300,33 @@ class Trollify {
 
     gamzee_ify(text) {
         if (text == "") { return ""; }
-        
-        var quirk = text.toLowerCase().split("");
-        var caps = false;
     
-        for (var i = 0; i < quirk.length; i++) {
-            if (quirk[i].match(/[a-z]/i)) {
-                caps = !caps;
+        if(this.settings.Trollify.gamzee.sober) {
+            if(this.settings.Trollify.gamzee.nextLineCaps) {
+                this.settings.Trollify.gamzee.nextLineCaps = false;
+                return text.toUpperCase();
+            }else {
+                this.settings.Trollify.gamzee.nextLineCaps = true;
+                return text.toLowerCase();
+            }
+        }else {
+            var quirk = text.toLowerCase().split("");
+            var caps = false;
+    
+            for (var i = 0; i < quirk.length; i++) {
+                if (quirk[i].match(/[a-z]/i)) {
+                    caps = !caps;
+                }
+    
+                if (caps) {
+                    quirk[i] = quirk[i].toUpperCase();
+                }
             }
     
-            if (caps) {
-                quirk[i] = quirk[i].toUpperCase();
-            }
+            return this.string_ify(quirk);
         }
-    
-        return this.string_ify(quirk);
+
+        
     }
 
     eridan_ify(text) {
@@ -383,7 +395,7 @@ class Trollify {
         return "Trollify -- Converts all your text to have a typing quirk\r\n"
             + "How to use: }}Quirkify{{";
     }
-    getVersion() { return "1.0"; }
+    getVersion() { return "1.1"; }
     getAuthor() { return "TeamGameRevolution"; }
 
     constructor() {
@@ -435,6 +447,10 @@ class Trollify {
                 },
                 feferi: {
                     fishpuns: true
+                },
+                gamzee: {
+                    sober: false,
+                    nextLineCaps: false
                 }
             }
         };
@@ -510,6 +526,10 @@ class Trollify {
             new ZLibrary.Settings.SettingGroup("Feferi", {callback: () => {this.saveSettings.bind(this)();}}).append(
                 new ZLibrary.Settings.Switch("Use fish puns", "Replaces certain words with fish puns", config.feferi.fishpuns,
                 (checked) => config.feferi.fishpuns = checked)
+            ),
+            new ZLibrary.Settings.SettingGroup("Gamzee", {callback: () => {this.saveSettings.bind(this)();}}).append(
+                new ZLibrary.Settings.Switch("Sober", "Alternates between all lower caps and all caps lock", config.gamzee.sober,
+                (checked) => config.gamzee.sober = checked)
             )
         );
     }
