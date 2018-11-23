@@ -1,4 +1,4 @@
-//META{"name": "Trollify", "website": "https://temmie.wtf", "source": "https://github.com/TeamGameRevolution/BetterDiscordAddons/blob/master/Trollify.plugin.js"}*//
+//META{"name": "Trollify", "website": "https://temmie.wtf", "source": "https://gist.github.com/TeamGameRevolution/2f45acab4c5da6a098e74c333d17cc65"}*//
 
 // Cast array of letters to proper grammar.
 Array.prototype.toProperCase = function() {
@@ -382,7 +382,7 @@ class Trollify {
     getDescription() {
         return "Trollify -- Converts all your text to have a typing quirk\r\n";
     }
-    getVersion() { return "0.3"; }
+    getVersion() { return "0.4"; }
     getAuthor() { return "TeamGameRevolution"; }
 
     constructor() {
@@ -589,7 +589,7 @@ class Trollify {
 
         try {
             ZLibrary.PluginUpdater.checkForUpdate(this.getName(), this.getVersion(),
-                "https://raw.githubusercontent.com/TeamGameRevolution/BetterDiscordAddons/master/Trollify.plugin.js");
+                "https://gist.githubusercontent.com/TeamGameRevolution/2f45acab4c5da6a098e74c333d17cc65/raw/7745f4e7dcaab9ef0ef07181094479c5340be5af/Trollify.plugin.js");
         }
         catch (err) {
             this.error("Couldn't check for updates.");
@@ -609,7 +609,7 @@ class Trollify {
 
                 let regex = /\}\}((?:(?!}}).)*?)\{\{/g;
                 if(!regex.test(value)) return;
-                value = value.replace(regex, defaultQuirks[this.settings.Trollify.selectedTroll].bind(this)(value));
+                value = value.replace(regex, this.defaultQuirks[this.settings.Trollify.selectedTroll].bind(this)(value));
                 //var selectedFunction = this.defaultQuirks[this.settings.Trollify.selectedTroll].bind(this);
                 //value = selectedFunction(value);
                 if(value.length > 2000) {
